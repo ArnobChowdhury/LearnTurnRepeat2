@@ -1,6 +1,7 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
 import App from "./App";
+import React from "react";
+import axios from "axios";
+import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./index.css";
@@ -13,12 +14,14 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    loader: () => {
-      return [{ name: "Solidity" }, { name: "Flutter" }];
+    loader: async () => {
+      const getCoursesUrl = "http://localhost:5174/api/courses";
+      const response = await axios.get(getCoursesUrl);
+      return response.data.courses;
     },
   },
   {
-    path: "courses/:course",
+    path: "courses/:courseName",
   },
 ]);
 

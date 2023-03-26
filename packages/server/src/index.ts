@@ -1,11 +1,13 @@
 import { v4 as uuid } from "uuid";
-import { shouldBeReviewed, getDB } from "./utils";
+import cors from "cors";
 import { promises as fsPromises } from "fs";
+import { shouldBeReviewed, getDB } from "./utils";
 import express, { Request, Response } from "express";
 
 const app = express();
 const port = 5174;
 app.use(express.json());
+app.use(cors());
 
 const { writeFile } = fsPromises;
 
