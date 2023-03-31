@@ -1,4 +1,5 @@
 import App from "./App";
+import Course from "./Course";
 import React from "react";
 import axios from "axios";
 import ReactDOM from "react-dom/client";
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
   },
   {
     path: "courses/:courseName",
+    element: <Course />,
   },
 ]);
 
