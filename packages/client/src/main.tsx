@@ -24,6 +24,12 @@ const router = createBrowserRouter([
   {
     path: "courses/:courseName",
     element: <Course />,
+    loader: async ({ params }) => {
+      const { courseName } = params;
+      const getCourseReviewables = `http://localhost:5174/api/reviewables/${courseName}`;
+      const response = await axios.get(getCourseReviewables);
+      return response.data.reviewables;
+    },
   },
 ]);
 
