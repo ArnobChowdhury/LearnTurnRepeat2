@@ -68,6 +68,25 @@ app.get("/api/reviewables", async (_req: Request, res: Response) => {
   res.status(200).json({ reviewables });
 });
 
+app.get("/api/reviewables/:course", async (req: Request, res: Response) => {
+  const { course } = req.params;
+  // to do fix the any types
+  const reviewables: any[] = [];
+  const db = await getDB();
+  // @ts-ignore
+  db[course].forEach((topic: any) => {
+    console.log("Inside for each", topic);
+    // @ts-ignore
+    const { lastReviewed, reviewedTimes } = topic;
+
+    if (shouldBeReviewed(reviewedTimes, lastReviewed)) {
+      reviewables.push(topic);
+    }
+  });
+
+  res.status(200).json({ reviewables });
+});
+
 app.patch(
   "/api/reviewables/:course/:id",
   async (req: Request, res: Response) => {
